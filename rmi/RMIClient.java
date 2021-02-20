@@ -10,7 +10,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
-import javax.management.remote.rmi.RMIServer;
+import rmi.RMIServer;
 
 import common.MessageInfo;
 
@@ -38,7 +38,7 @@ public class RMIClient {
 				System.setSecurityManager(new RMISecurityManager());
 
 				Registry registry = LocateRegistry.getRegistry(8000);
-				javax.management.remote.rmi.RMIServer server = registry.lookup(serverUrl);
+				RMIServer server = registry.lookup(serverUrl);
 
 				int numMsgs = 100;
 				for (int i = 1; i <= numMsgs; i++) {

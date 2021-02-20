@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.sun.deploy.util.StringUtils;
 import common.*;
 
 public class RMIServer extends UnicastRemoteObject implements RMIServerI {
@@ -50,7 +49,7 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 			}
 			System.out.println("Total number of messages sent: " + totalMessages);
 			System.out.println("Number of missing messages: " + missingMsgs.size());
-			System.out.println("Messages numbers that are missing: " + StringUtils.join(missingMsgs, ","));
+			System.out.println("Messages numbers that are missing: " + missingMsgs);
 		}
 	}
 

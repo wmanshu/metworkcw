@@ -26,7 +26,7 @@ public class RMIClient {
 			System.exit(-1);
 		}
 
-		String serverUrl = "rmi://" + args[0] + ":8080/serverUrl";
+		String serverUrl = "rmi://" + args[0] + "/serverUrl";
 		int numMessages = Integer.parseInt(args[1]);
 
 		// TO-DO: Initialise Security Manager
@@ -36,7 +36,7 @@ public class RMIClient {
 			if (System.getSecurityManager() == null) {
 				System.setSecurityManager(new RMISecurityManager());
 
-				Registry registry = LocateRegistry.getRegistry(8000);
+				Registry registry = LocateRegistry.getRegistry(8080);
 				iRMIServer = (RMIServerI) registry.lookup(serverUrl);
 				// RMIServerI server = (RMIServerI) Naming.lookup(serverUrl);
 

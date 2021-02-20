@@ -62,10 +62,12 @@ public class UDPServer {
 			while (!close) {
 				pac = new DatagramPacket(pacData, pacSize);
 				recvSoc.receive(pac);
-				processMessage(new String(pac.getData(), StandardCharsets.UTF_8));
+				processMessage(new String(pac.getData()).trim());
 			}
-		} catch (Exception e) {
-			System.out.println("Exception ar UDP server: " + e);
+		} catch (SocketException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		} finally {
 			this.close = true;
 		}
@@ -74,10 +76,15 @@ public class UDPServer {
 	public void processMessage(String data) {
 		System.out.println("processing data: " + data);
 		// TO-DO: Use the data to construct a new MessageInfo object
-		try {
-			MessageInfo msg = new MessageInfo(data);
 
-			// TO-DO: On receipt of first message, initialise the receive buffer;
+		MessageInfo msg = null;
+		try {
+			msg = new MessageInfo(data);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		// TO-DO: On receipt of first message, initialise the receive buffer;
 			int currNum = msg.messageNum;
 			if (currNum == 0) {
 				this.totalMessages = msg.totalMessages;
@@ -106,9 +113,7 @@ public class UDPServer {
 					System.out.println("Messages numbers that are missing: " + missingMsgs);
 				}
 			}
-		} catch (Exception e) {
-			System.out.println("Exception: " + e);
-		}
+
 	}
 
 }

@@ -10,13 +10,12 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
+import rmi.RMIServer;
 import rmi.RMIServerI;
 
 import common.MessageInfo;
 
 public class RMIClient {
-	public String SERVER_URL = "rmiServer";
-
 	public static void main(String[] args) {
 
 		RMIServerI iRMIServer = null;
@@ -38,7 +37,7 @@ public class RMIClient {
 				System.setSecurityManager(new RMISecurityManager());
 
 				Registry registry = LocateRegistry.getRegistry(8000);
-				rmi.RMIServer server = (RMIServer) registry.lookup(serverUrl);
+				RMIServer server = (RMIServer) registry.lookup(serverUrl);
 				// RMIServerI server = (RMIServerI) Naming.lookup(serverUrl);
 				int numMsgs = 100;
 				for (int i = 0; i < numMsgs; i++) {

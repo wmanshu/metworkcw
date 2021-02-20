@@ -45,7 +45,12 @@ public class UDPClient {
 
 	public UDPClient() {
 		// TO-DO: Initialise the UDP socket for sending data
-		sendSoc = new DatagramSocket();
+		try {
+			sendSoc = new DatagramSocket();
+
+		} catch (Exception e) {
+			System.out.println("Exception: " + e);
+		}
 	}
 
 	private void testLoop(InetAddress serverAddr, int recvPort, int countTo) {

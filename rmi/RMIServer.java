@@ -74,6 +74,7 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 		// TO-DO: Instantiate the server class
 		// TO-DO: Bind to RMI registry
 		try {
+			String serverUrl = "serverUrl";
 			RMIServer server = new RMIServer();
 			rebindServer(serverUrl, server);
 		} catch (Exception e) {

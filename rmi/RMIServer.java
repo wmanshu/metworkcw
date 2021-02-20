@@ -29,7 +29,7 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 		// TO-DO: On receipt of first message, initialise the receive buffer
 		int messageNum = msg.messageNum;
 
-		if (totalMessages == -1) {
+		if (messageNum == 0) {
 			totalMessages = msg.totalMessages;
 			receivedMessages = new int[totalMessages];
 		}

@@ -37,11 +37,11 @@ public class RMIClient {
 				System.setSecurityManager(new RMISecurityManager());
 
 				Registry registry = LocateRegistry.getRegistry(8000);
-				RMIServerI server = (RMIServerI) registry.lookup(serverUrl);
+				iRMIServer = (RMIServerI) registry.lookup(serverUrl);
 				// RMIServerI server = (RMIServerI) Naming.lookup(serverUrl);
 
 				for (int i = 0; i < numMessages; i++) {
-					server.receiveMessage(new MessageInfo(numMessages, i));
+					iRMIServer.receiveMessage(new MessageInfo(numMessages, i));
 				}
 			}
 		} catch (Exception e) {

@@ -8,8 +8,10 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 import common.MessageInfo;
 
@@ -47,6 +49,7 @@ public class UDPServer {
 	}
 
 	private void run() {
+		this.close = false;
 		int pacSize = 1000;
 		byte[] pacData = new byte[pacSize];
 		DatagramPacket pac;
@@ -56,13 +59,15 @@ public class UDPServer {
 		int timeout = 30000;
 		try {
 			recvSoc.setSoTimeout(timeout);
-			while (true) {
+			while (!close) {
 				pac = new DatagramPacket(pacData, pacSize);
 				recvSoc.receive(pac);
 				processMessage(new String(pac.getData(), StandardCharsets.UTF_8));
 			}
 		} catch (Exception e) {
 			System.out.println("Exception ar UDP server: " + e);
+		} finally {
+			this.close = true;
 		}
 	}
 
@@ -72,25 +77,33 @@ public class UDPServer {
 			MessageInfo msg = new MessageInfo(data);
 
 			// TO-DO: On receipt of first message, initialise the receive buffer;
-			int expectTotal = msg.totalMessages;
 			int currNum = msg.messageNum;
-
-			if (currNum == 1) {
-				receivedMessages = new int[expectTotal];
-				totalMessages = 1;
-			} else {
-				totalMessages += 1;
+			if (currNum == 0) {
+				this.totalMessages = msg.totalMessages;
+				receivedMessages = new int[totalMessages];
 			}
 			receivedMessages[currNum] = currNum;
 
 			// TO-DO: Log receipt of the message
-			System.out.println("message received at server: " + data);
+			System.out.println("Message received: " + data);
 
 			// TO-DO: If this is the last expected message, then identify
 			// any missing messages
-			if (currNum == expectTotal) {
-				// And checks
-				System.out.println("expected total: " + expectTotal);
+			if (currNum == (totalMessages - 1)) {
+				this.close = true;
+				List<Integer> missingMsgs = new ArrayList<>();
+				for(int i = 0; i < totalMessages; i++) {
+					if (receivedMessages[i] != i) {
+						missingMsgs.add(i);
+					}
+				}
+				System.out.println("Total number of messages sent: " + totalMessages);
+				if (missingMsgs.isEmpty()) {
+					System.out.println("All messaged received");
+				} else {
+					System.out.println("Number of missing messages: " + missingMsgs.size());
+					System.out.println("Messages numbers that are missing: " + missingMsgs);
+				}
 			}
 		} catch (Exception e) {
 			System.out.println("Exception: " + e);

@@ -31,7 +31,7 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 
 		if (totalMessages == -1) {
 			totalMessages = 1;
-			receivedMessages = new Int[totalMessages];
+			receivedMessages = new int[totalMessages];
 			receivedMessagesBuffer = IntBuffer.allocate(totalMessages);
 		} else {
 			totalMessages += 1;

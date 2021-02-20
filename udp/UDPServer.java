@@ -9,6 +9,7 @@ import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.util.Arrays;
+import java.nio.charset.StandardCharsets;
 
 import common.MessageInfo;
 
@@ -20,8 +21,8 @@ public class UDPServer {
 	private boolean close;
 
 	private void run() {
-		int pacSize;
-		byte[] pacData;
+		int pacSize = 1000;
+		byte[] pacData = new byte[pacSize];
 		DatagramPacket pac;
 
 		// TO-DO: Receive the messages and process them by calling processMessage(...).
@@ -48,7 +49,7 @@ public class UDPServer {
 		int currNum = msg.messageNum;
 
 		if (currNum == 1) {
-			receivedMessages = new Int[expectTotal];
+			receivedMessages = new int[expectTotal];
 			totalMessages = 1;
 		} else {
 			totalMessages += 1;

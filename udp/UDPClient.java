@@ -70,7 +70,10 @@ public class UDPClient {
 		payloadSize = pktData.length;
 
 		pkt = new DatagramPacket(pktData, payloadSize, destAddr, destPort);
-
-		sendSoc.send(pkt);
+		try {
+			sendSoc.send(pkt);
+		} catch (Exception e) {
+			System.out.println("Exception: " + e);
+		}
 	}
 }

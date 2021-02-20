@@ -27,7 +27,7 @@ public class RMIClient {
 			System.exit(-1);
 		}
 
-		String serverUrl = args[0]
+		String serverUrl = args[0];
 		int numMessages = Integer.parseInt(args[1]);
 
 		// TO-DO: Initialise Security Manager

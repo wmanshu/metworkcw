@@ -36,7 +36,7 @@ public class RMIClient {
 			if (System.getSecurityManager() == null) {
 				System.setSecurityManager(new SecurityManager());
 
-				RMIServerI server = (RMIServerI) Naming.lookup(serverUrl);
+				iRMIServer = (RMIServerI) Naming.lookup(serverUrl);
 
 				for (int i = 0; i < numMessages; i++) {
 					iRMIServer.receiveMessage(new MessageInfo(numMessages, i));

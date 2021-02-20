@@ -13,6 +13,8 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Arrays;
 
+import com.sun.nio.sctp.MessageInfo;
+
 import common.*;
 
 public class RMIServer extends UnicastRemoteObject implements RMIServerI {
@@ -26,6 +28,8 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 	public void receiveMessage(MessageInfo msg) throws RemoteException {
 
 		// On receipt of first message, initialise the receive buffer
+		System.out.println("hello " + msg.toString());
+
 		int messageNum = msg.messageNum;
 		System.out.println("hello " + messageNum);
 

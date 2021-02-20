@@ -19,7 +19,6 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 	private int totalMessages = -1;
 	private int[] receivedMessages;
 	private IntBuffer receivedMessagesBuffer;
-	private String SERVER_URL = "rmiServer";
 
 	public RMIServer() throws RemoteException {
 	}
@@ -75,7 +74,7 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 		// TO-DO: Bind to RMI registry
 		try {
 			RMIServer server = new RMIServer();
-			rebindServer(SERVER_URL, server);
+			rebindServer(serverUrl, server);
 		} catch (Exception e) {
 			System.out.println("Trouble: " + e);
 		}

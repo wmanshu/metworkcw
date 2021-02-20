@@ -65,8 +65,10 @@ public class UDPServer {
 				processMessage(new String(pac.getData()).trim());
 			}
 		} catch (SocketException e) {
+			printMsgs();
 			e.printStackTrace();
 		} catch (IOException e) {
+			printMsgs();
 			e.printStackTrace();
 		} finally {
 			this.close = true;
@@ -99,21 +101,24 @@ public class UDPServer {
 			// any missing messages
 			if (currNum == (totalMessages - 1)) {
 				this.close = true;
-				List<Integer> missingMsgs = new ArrayList<>();
-				for(int i = 0; i < totalMessages; i++) {
-					if (receivedMessages[i] != i) {
-						missingMsgs.add(i);
-					}
-				}
-				System.out.println("Total number of messages sent: " + totalMessages);
-				if (missingMsgs.isEmpty()) {
-					System.out.println("All messaged received");
-				} else {
-					System.out.println("Number of missing messages: " + missingMsgs.size());
-					System.out.println("Messages numbers that are missing: " + missingMsgs);
-				}
+				printMsgs();
 			}
+	}
 
+	private void printMsgs() {
+		List<Integer> missingMsgs = new ArrayList<>();
+		for(int i = 0; i < totalMessages; i++) {
+			if (receivedMessages[i] != i) {
+				missingMsgs.add(i);
+			}
+		}
+		System.out.println("Total number of messages sent: " + totalMessages);
+		if (missingMsgs.isEmpty()) {
+			System.out.println("All messaged received");
+		} else {
+			System.out.println("Number of missing messages: " + missingMsgs.size());
+			System.out.println("Messages numbers that are missing: " + missingMsgs);
+		}
 	}
 
 }

@@ -34,7 +34,7 @@ public class RMIClient {
 		// TO-DO: Attempt to send messages the specified number of times
 		try {
 			if (System.getSecurityManager() == null) {
-				System.setSecurityManager(new RMISecurityManager());
+				System.setSecurityManager(new SecurityManager());
 
 				// Registry registry = LocateRegistry.getRegistry(8080);
 				// iRMIServer = (RMIServerI) registry.lookup(serverUrl);

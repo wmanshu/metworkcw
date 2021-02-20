@@ -39,8 +39,8 @@ public class RMIClient {
 				Registry registry = LocateRegistry.getRegistry(8000);
 				RMIServerI server = (RMIServerI) registry.lookup(serverUrl);
 				// RMIServerI server = (RMIServerI) Naming.lookup(serverUrl);
-				int numMsgs = 100;
-				for (int i = 0; i < numMsgs; i++) {
+
+				for (int i = 0; i < numMessages; i++) {
 					server.receiveMessage(new MessageInfo(numMsgs, i));
 				}
 			}

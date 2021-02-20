@@ -20,6 +20,32 @@ public class UDPServer {
 	private int[] receivedMessages;
 	private boolean close;
 
+	public UDPServer(int rp) {
+		// TO-DO: Initialise UDP socket for receiving data
+		try {
+			recvSoc = new DatagramSocket(rp);
+			// Done Initialisation
+			System.out.println("UDPServer ready");
+		} catch (Exception e) {
+			System.out.println("Exception: " + e);
+		}
+	}
+
+	public static void main(String args[]) {
+		int recvPort;
+
+		// Get the parameters from command line
+		if (args.length < 1) {
+			System.err.println("Arguments required: recv port");
+			System.exit(-1);
+		}
+		recvPort = Integer.parseInt(args[0]);
+
+		// TO-DO: Construct Server object and start it by calling run().
+		UDPServer server = new UDPServer(recvPort);
+		server.run();
+	}
+
 	private void run() {
 		int pacSize = 1000;
 		byte[] pacData = new byte[pacSize];
@@ -27,7 +53,7 @@ public class UDPServer {
 
 		// TO-DO: Receive the messages and process them by calling processMessage(...).
 		// Use a timeout (e.g. 30 secs) to ensure the program doesn't block forever
-		int timeout = 30;
+		int timeout = 30000;
 		try {
 			recvSoc.setSoTimeout(timeout);
 			while (true) {
@@ -69,34 +95,6 @@ public class UDPServer {
 		} catch (Exception e) {
 			System.out.println("Exception: " + e);
 		}
-	}
-
-	public UDPServer(int rp) {
-		// TO-DO: Initialise UDP socket for receiving data
-		try {
-			recvSoc = new DatagramSocket(rp);
-			// Done Initialisation
-			System.out.println("UDPServer ready");
-		} catch (Exception e) {
-			System.out.println("Exception: " + e);
-		}
-
-	}
-
-	public static void main(String args[]) {
-		int recvPort;
-
-		// Get the parameters from command line
-		if (args.length < 1) {
-			System.err.println("Arguments required: recv port");
-			System.exit(-1);
-		}
-		recvPort = Integer.parseInt(args[0]);
-
-		// TO-DO: Construct Server object and start it by calling run().
-		UDPServer server = new UDPServer(recvPort);
-		server.run();
-
 	}
 
 }

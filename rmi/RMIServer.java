@@ -19,7 +19,6 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 
 	private int totalMessages = -1;
 	private int[] receivedMessages;
-	// private IntBuffer receivedMessagesBuffer;
 
 	public RMIServer() throws RemoteException {
 	}
@@ -84,8 +83,7 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 		// If we *know* the registry is running we could skip this (eg run rmiregistry
 		// in the start script)
 		try {
-			Registry registry = LocateRegistry.createRegistry(8000);
-
+			Registry registry = LocateRegistry.createRegistry(1099);
 			// TO-DO:
 			// Now rebind the server to the registry (rebind replaces any existing servers
 			// bound to the serverURL)

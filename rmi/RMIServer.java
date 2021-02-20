@@ -48,8 +48,12 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 				}
 			}
 			System.out.println("Total number of messages sent: " + totalMessages);
-			System.out.println("Number of missing messages: " + missingMsgs.size());
-			System.out.println("Messages numbers that are missing: " + missingMsgs);
+			if (missingMsgs.isEmpty()) {
+				System.out.println("All messaged received");
+			} else {
+				System.out.println("Number of missing messages: " + missingMsgs.size());
+				System.out.println("Messages numbers that are missing: " + missingMsgs);
+			}
 		}
 	}
 

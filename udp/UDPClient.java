@@ -47,9 +47,8 @@ public class UDPClient {
 		// TO-DO: Initialise the UDP socket for sending data
 		try {
 			sendSoc = new DatagramSocket();
-
-		} catch (Exception e) {
-			System.out.println("Exception: " + e);
+		} catch (SocketException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -58,7 +57,7 @@ public class UDPClient {
 
 		// TO-DO: Send the messages to the server
 		while (tries < countTo) {
-			common.MessageInfo msg = new MessageInfo(countTo, tries);
+			MessageInfo msg = new MessageInfo(countTo, tries);
 			String payload = msg.toString();
 			send(payload, serverAddr, recvPort);
 			tries++;
@@ -77,8 +76,8 @@ public class UDPClient {
 		pkt = new DatagramPacket(pktData, payloadSize, destAddr, destPort);
 		try {
 			sendSoc.send(pkt);
-		} catch (Exception e) {
-			System.out.println("Exception: " + e);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 }

@@ -58,10 +58,10 @@ public class UDPClient {
 
 		// TO-DO: Send the messages to the server
 		while (tries < countTo) {
-			tries++;
 			common.MessageInfo msg = new MessageInfo(countTo, tries);
 			String payload = msg.toString();
 			send(payload, serverAddr, recvPort);
+			tries++;
 		}
 	}
 

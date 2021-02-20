@@ -27,18 +27,13 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 	public void receiveMessage(MessageInfo msg) throws RemoteException {
 
 		// TO-DO: On receipt of first message, initialise the receive buffer
-		int expectedTotalMessages = msg.totalMessages;
 		int messageNum = msg.messageNum;
 
 		if (totalMessages == -1) {
-			totalMessages = 1;
-			receivedMessages = new int[expectedTotalMessages];
-			// receivedMessagesBuffer = IntBuffer.allocate(totalMessages);
-		} else {
-			totalMessages += 1;
+			totalMessages = msg.totalMessages;
+			receivedMessages = new int[totalMessages];
 		}
 
-		// receivedMessagesBuffer.put(messageNum);
 		receivedMessages[messageNum] = messageNum;
 
 		// TO-DO: Log receipt of the message
@@ -46,20 +41,19 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 
 		// TO-DO: If this is the last expected message, then identify
 		// any missing messages
-		if (expectedTotalMessages == (messageNum + 1)) {
-			// receivedMessages = receivedMessagesBuffer.array();
-			if (totalMessages == expectedTotalMessages) {
-				// doesn't have missing messages
-				System.out.println("Total number of messages received: " + totalMessages);
-				System.out.println("Number of missing messages: 0");
-			} else {
-				// has missing messages
-				int numMissing = expectedTotalMessages - totalMessages;
+		if (totalMessages == (messageNum + 1)) {
+			// if (totalMessages == ) {
+			// doesn't have missing messages
+			System.out.println("Total number of messages received: " + totalMessages);
+			// System.out.println("Number of missing messages: 0");
+			// } else {
+			// // has missing messages
+			// int numMissing = expectedTotalMessages - totalMessages;
 
-				System.out.println("Total number of messages received: " + totalMessages);
-				System.out.println("Number of missing messages: " + numMissing);
+			// System.out.println("Total number of messages received: " + totalMessages);
+			// System.out.println("Number of missing messages: " + numMissing);
 
-			}
+			// }
 		}
 	}
 

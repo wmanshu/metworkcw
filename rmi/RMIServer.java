@@ -7,6 +7,7 @@ import java.net.MalformedURLException;
 import java.nio.IntBuffer;
 import java.rmi.Naming;
 import java.rmi.RMISecurityManager;
+import java.rmi.registry.Registry;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;

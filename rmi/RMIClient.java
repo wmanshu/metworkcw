@@ -41,7 +41,7 @@ public class RMIClient {
 				// RMIServerI server = (RMIServerI) Naming.lookup(serverUrl);
 
 				for (int i = 0; i < numMessages; i++) {
-					server.receiveMessage(new MessageInfo(numMsgs, i));
+					server.receiveMessage(new MessageInfo(numMessages, i));
 				}
 			}
 		} catch (Exception e) {

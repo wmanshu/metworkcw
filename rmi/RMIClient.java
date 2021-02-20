@@ -37,9 +37,9 @@ public class RMIClient {
 			if (System.getSecurityManager() == null) {
 				System.setSecurityManager(new RMISecurityManager());
 
-				// Registry registry = LocateRegistry.getRegistry(8000);
-				// rmi.RMIServer server = (RMIServer) registry.lookup(serverUrl);
-				RMIServerI server = (RMIServerI) Naming.lookup(serverUrl);
+				Registry registry = LocateRegistry.getRegistry(8000);
+				rmi.RMIServer server = (RMIServer) registry.lookup(serverUrl);
+				// RMIServerI server = (RMIServerI) Naming.lookup(serverUrl);
 				int numMsgs = 100;
 				for (int i = 0; i < numMsgs; i++) {
 					server.receiveMessage(new MessageInfo(numMsgs, i));

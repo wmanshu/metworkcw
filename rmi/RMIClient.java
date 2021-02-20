@@ -29,15 +29,13 @@ public class RMIClient {
 		String serverUrl = "rmi://" + args[0] + ":8080/serverUrl";
 		int numMessages = Integer.parseInt(args[1]);
 
-		// TO-DO: Initialise Security Manager
-		// TO-DO: Bind to RMIServer
-		// TO-DO: Attempt to send messages the specified number of times
+		// Initialise Security Manager
+		// Bind to RMIServer
+		// Attempt to send messages the specified number of times
 		try {
 			if (System.getSecurityManager() == null) {
 				System.setSecurityManager(new SecurityManager());
 
-				// Registry registry = LocateRegistry.getRegistry(8080);
-				// iRMIServer = (RMIServerI) registry.lookup(serverUrl);
 				RMIServerI server = (RMIServerI) Naming.lookup(serverUrl);
 
 				for (int i = 0; i < numMessages; i++) {

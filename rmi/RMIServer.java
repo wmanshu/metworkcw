@@ -25,9 +25,8 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 
 	public void receiveMessage(MessageInfo msg) throws RemoteException {
 
-		// TO-DO: On receipt of first message, initialise the receive buffer
+		// On receipt of first message, initialise the receive buffer
 		int messageNum = msg.messageNum;
-
 		if (messageNum == 0) {
 			totalMessages = msg.totalMessages;
 			receivedMessages = new int[totalMessages];
@@ -60,31 +59,28 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 
 		RMIServer rmis = null;
 
-		// TO-DO: Initialise Security Manager
+		// Initialise Security Manager
 		if (System.getSecurityManager() == null) {
 			System.setSecurityManager(new SecurityManager());
 		}
 
-		// TO-DO: Instantiate the server class
-		// TO-DO: Bind to RMI registry
+		// Instantiate the server class
+		// Bind to RMI registry
 		try {
 			String serverUrl = "serverUrl";
-			RMIServer server = new RMIServer();
-			rebindServer(serverUrl, server);
+			rmis = new RMIServer();
+			rebindServer(serverUrl, rmis);
 		} catch (Exception e) {
 			System.out.println("Trouble: " + e);
 		}
 	}
 
 	protected static void rebindServer(String serverURL, RMIServer server) {
-
-		// TO-DO:
 		// Start / find the registry (hint use LocateRegistry.createRegistry(...)
 		// If we *know* the registry is running we could skip this (eg run rmiregistry
 		// in the start script)
 		try {
 			Registry registry = LocateRegistry.createRegistry(8080);
-			// TO-DO:
 			// Now rebind the server to the registry (rebind replaces any existing servers
 			// bound to the serverURL)
 			// Note - Registry.rebind (as returned by createRegistry / getRegistry) does

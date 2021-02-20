@@ -46,7 +46,7 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 
 		// TO-DO: If this is the last expected message, then identify
 		// any missing messages
-		if (expectedTotalMessages == messageNum) {
+		if (expectedTotalMessages == (messageNum + 1)) {
 			// receivedMessages = receivedMessagesBuffer.array();
 			if (totalMessages == expectedTotalMessages) {
 				// doesn't have missing messages

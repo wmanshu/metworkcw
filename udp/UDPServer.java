@@ -26,27 +26,49 @@ public class UDPServer {
 
 		// TO-DO: Receive the messages and process them by calling processMessage(...).
 		// Use a timeout (e.g. 30 secs) to ensure the program doesn't block forever
-
+		int timeout = 30;
+		recvSoc.setSoTimeout(timeout);
+		try {
+			while (true) {
+				pac = new DatagramPacket(pacData, pacSize);
+				recvSoc.receive(pac);
+				processMessage(new String(pac.getData(), StandardCharsets.UTF_8));
+			}
+		} catch (Exception e) {
+			System.out.println("Exception ar UDP server: " + e);
+		}
 	}
 
 	public void processMessage(String data) {
-
-		MessageInfo msg = null;
-
 		// TO-DO: Use the data to construct a new MessageInfo object
-		msg = new MessageInfo(data);
+		MessageInfo msg = new MessageInfo(data);
 
-		// TO-DO: On receipt of first message, initialise the receive buffer
+		// TO-DO: On receipt of first message, initialise the receive buffer;
+		int expectTotal = msg.totalMessages;
+		int currNum = msg.messageNum;
+
+		if (currNum == 1) {
+			receivedMessages = new Int[expectTotal];
+			totalMessages = 1;
+		} else {
+			totalMessages += 1;
+		}
+		receivedMessages[currNum] = currNum;
 
 		// TO-DO: Log receipt of the message
+		System.out.println("message received at server: " + data);
 
 		// TO-DO: If this is the last expected message, then identify
 		// any missing messages
-
+		if (currNum == expectTotal) {
+			// And checks
+			System.out.println("expected total: " + expectTotal);
+		}
 	}
 
 	public UDPServer(int rp) {
 		// TO-DO: Initialise UDP socket for receiving data
+		recvSoc = new DatagramSocket(rp);
 
 		// Done Initialisation
 		System.out.println("UDPServer ready");
@@ -63,6 +85,7 @@ public class UDPServer {
 		recvPort = Integer.parseInt(args[0]);
 
 		// TO-DO: Construct Server object and start it by calling run().
+		UDPServer server = new UDPServer(recvPort);
 	}
 
 }

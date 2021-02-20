@@ -22,12 +22,12 @@ public class RMIClient {
 		RMIServerI iRMIServer = null;
 
 		// Check arguments for Server host and number of messages
-		if (args.length < 2){
+		if (args.length < 2) {
 			System.out.println("Needs 2 arguments: ServerHostName/IPAddress, TotalMessageCount");
 			System.exit(-1);
 		}
 
-		String urlServer = new String("rmi://" + args[0] + "/RMIServer");
+		String serverUrl = args[0]
 		int numMessages = Integer.parseInt(args[1]);
 
 		// TO-DO: Initialise Security Manager
@@ -38,11 +38,11 @@ public class RMIClient {
 				System.setSecurityManager(new RMISecurityManager());
 
 				Registry registry = LocateRegistry.getRegistry(8000);
-				RMIServer server = registry.lookup(RMIServer.SERVER_URL);
-				
+				RMIServer server = registry.lookup(serverUrl);
+
 				int numMsgs = 100;
 				for (int i = 1; i <= numMsgs; i++) {
-					server.receiveMessage(new MessageInfo(numMsgs + ";" + i);
+					server.receiveMessage(new MessageInfo(numMsgs + ";" + i));
 				}
 			}
 		} catch (Exception e) {

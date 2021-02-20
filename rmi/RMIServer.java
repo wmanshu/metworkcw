@@ -38,6 +38,7 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 		}
 
 		receivedMessagesBuffer.put(messageNum);
+		receivedMessages[messageNum] = messageNum;
 
 		// TO-DO: Log receipt of the message
 		System.out.println("Message received: " + msg.toString());

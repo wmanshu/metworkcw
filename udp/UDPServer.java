@@ -73,7 +73,7 @@ public class UDPServer {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
-			this.close = true;
+			recvSoc.close();
 		}
 	}
 

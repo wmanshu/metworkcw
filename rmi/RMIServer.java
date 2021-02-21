@@ -28,7 +28,6 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 	public void receiveMessage(MessageInfo msg) throws RemoteException {
 		// On receipt of first message, initialise the receive buffer
 		int messageNum = msg.messageNum;
-		System.out.println("Message received: " + msg.toString());
 		if (messageNum == 0) {
 			totalMessages = msg.totalMessages;
 			receivedMessages = new int[totalMessages];

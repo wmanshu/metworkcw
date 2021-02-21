@@ -61,14 +61,16 @@ public class UDPServer {
 			recvSoc.setSoTimeout(timeout);
 			while (!close) {
 				pac = new DatagramPacket(pacData, pacSize);
-				recvSoc.receive(pac);
+				try {
+					recvSoc.receive(pac);
+				} catch (SocketTimeoutException e) {
+					printMsgs();
+				}
 				processMessage(new String(pac.getData()).trim());
 			}
 		} catch (SocketException e) {
-			printMsgs();
 			e.printStackTrace();
 		} catch (IOException e) {
-			printMsgs();
 			e.printStackTrace();
 		} finally {
 			this.close = true;

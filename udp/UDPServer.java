@@ -65,6 +65,7 @@ public class UDPServer {
 					recvSoc.receive(pac);
 				} catch (SocketTimeoutException e) {
 					printMsgs();
+					recvSoc.close();
 				}
 				processMessage(new String(pac.getData()).trim());
 			}

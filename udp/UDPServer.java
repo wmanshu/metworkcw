@@ -50,7 +50,7 @@ public class UDPServer {
 
 	private void run() {
 		this.close = false;
-		int pacSize = 1000;
+		int pacSize = 10000;
 		byte[] pacData = new byte[pacSize];
 		DatagramPacket pac;
 

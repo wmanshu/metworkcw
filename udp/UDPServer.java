@@ -78,7 +78,6 @@ public class UDPServer {
 	}
 
 	public void processMessage(String data) {
-		System.out.println("processing data: " + data);
 		// TO-DO: Use the data to construct a new MessageInfo object
 
 		MessageInfo msg = null;
